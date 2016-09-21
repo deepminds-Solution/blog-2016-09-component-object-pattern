@@ -20,3 +20,18 @@ export const toggleTodo = (id) => {
     id,
   };
 };
+
+export const addGroceryItem = (text) => {
+    return {
+        type: 'ADD_GROCERY_ITEM',
+        id: (nextTodoId++).toString(),
+        text,
+    };
+};
+
+export const toggleGroceryItem = (id) => {
+    return {
+        type: 'TOGGLE_GROCERY_ITEM',
+        id,
+    };
+};
