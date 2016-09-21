@@ -1,32 +1,51 @@
 buildscript {
-	ext {
-		springBootVersion = '1.4.0.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.3.5.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("com.moowork.gradle:gradle-node-plugin:0.13")
+    }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
+apply plugin: 'com.moowork.node'
 
 jar {
-	baseName = 'blog-2016-09-component-object-pattern'
-	version = '0.0.1-SNAPSHOT'
+    baseName = 'blog-2016-09-component-object-pattern'
+    version = '0.0.1-SNAPSHOT'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("io.github.bonigarcia:webdrivermanager:1.4.6")
 }
+
+task buildUi(type: NodeTask) {
+    script = file('src/main/ui/node_modules/webpack/bin/webpack.js')
+    execOverrides {
+        it.workingDir = 'src/main/ui'
+    }
+}
+
+node {
+    nodeModulesDir = file("src/main/ui")
+}
+
+compileJava.dependsOn 'buildUi'
+buildUi.dependsOn 'npmInstall'
