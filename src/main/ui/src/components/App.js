@@ -7,10 +7,10 @@ import VisibleGroceryList from './VisibleGroceryList';
 
 const App = () => (
   <div>
-    <AddTodo />
-    <VisibleTodoList />
-    <AddGroceryItem />
-    <VisibleGroceryList />
+    <AddTodo className="add-todo"/>
+    <VisibleTodoList className="todo-list"/>
+    <AddGroceryItem className="add-grocery-item"/>
+    <VisibleGroceryList className="grocery-list"/>
     <Footer />
   </div>
 );
