@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { addGroceryItem } from '../actions';
 
-const AddGroceryItem = ({ dispatch }) => {
+const AddGroceryItem = ({ dispatch, className }) => {
   let input;
 
   return (
-    <div>
+    <div className={className}>
       <form
         onSubmit={e => {
           e.preventDefault();
