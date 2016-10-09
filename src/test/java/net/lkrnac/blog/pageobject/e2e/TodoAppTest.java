@@ -218,4 +218,39 @@ public class TodoAppTest {
             .verifyItemShown("avocados", true)
             .verifyItemShown("tomatoes", false);
     }
+
+    @Test
+    public void testSelectCombinedItemsActive() {
+        // GIVEN
+        TodoPageObject todoPage = new TodoPageObject(driver).get();
+
+        todoPage
+            .addTodo("Buy groceries")
+            .addTodo("Tidy up")
+            .addGroceryItem("avocados")
+            .addGroceryItem("tomatoes");
+
+        todoPage
+            .getGroceryList()
+            .clickOnTodoItem("avocados");
+
+        todoPage
+            .getTodoList()
+            .clickOnTodoItem("Tidy up");
+
+        // WHEN
+        todoPage
+            .selectActive();
+
+        // THEN
+        todoPage
+            .getTodoList()
+            .verifyItemShown("Buy groceries", false)
+            .verifyItemNotShown("Tidy up");
+
+        todoPage
+            .getGroceryList()
+            .verifyItemNotShown("avocados")
+            .verifyItemShown("tomatoes", false);
+    }
 }
