@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { addTodo } from '../actions';
 
-const AddTodo = ({ dispatch }) => {
+const AddTodo = ({ dispatch, className }) => {
   let input;
 
   return (
-    <div>
+    <div className={className}>
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -28,6 +28,7 @@ const AddTodo = ({ dispatch }) => {
 
 AddTodo.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  className: PropTypes.func.string,
 };
 
 export default connect()(AddTodo);

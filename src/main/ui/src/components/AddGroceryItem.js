@@ -28,6 +28,7 @@ const AddGroceryItem = ({ dispatch }) => {
 
 AddGroceryItem.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  className: PropTypes.func.string,
 };
 
 export default connect()(AddGroceryItem);
