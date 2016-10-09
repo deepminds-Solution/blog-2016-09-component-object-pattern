@@ -25,7 +25,7 @@ class ItemsListComponent {
         this.containerCssSelector = containerCssSelector;
     }
 
-    ItemsListComponent clickOnTodoItem(String todoItem) {
+    ItemsListComponent clickOnItem(String todoItem) {
         findElementWithText(todoItem).click();
         return this;
     }

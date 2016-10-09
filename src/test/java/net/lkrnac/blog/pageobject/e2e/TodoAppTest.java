@@ -57,7 +57,7 @@ public class TodoAppTest {
             .getTodoList()
 
             // WHEN
-            .clickOnTodoItem("Buy groceries")
+            .clickOnItem("Buy groceries")
 
             // THEN
             .verifyItemShown("Buy groceries", true)
@@ -73,7 +73,7 @@ public class TodoAppTest {
             .addTodo("Buy groceries")
             .addTodo("Tidy up")
             .getTodoList()
-            .clickOnTodoItem("Buy groceries");
+            .clickOnItem("Buy groceries");
 
         // WHEN
         todoPage
@@ -93,7 +93,7 @@ public class TodoAppTest {
             .addTodo("Buy groceries")
             .addTodo("Tidy up")
             .getTodoList()
-            .clickOnTodoItem("Buy groceries");
+            .clickOnItem("Buy groceries");
 
         // WHEN
         todoPage
@@ -113,7 +113,7 @@ public class TodoAppTest {
             .addTodo("Buy groceries")
             .addTodo("Tidy up")
             .getTodoList()
-            .clickOnTodoItem("Buy groceries");
+            .clickOnItem("Buy groceries");
         todoPage
             .selectCompleted()
 
@@ -150,7 +150,7 @@ public class TodoAppTest {
             .getGroceryList()
 
             // WHEN
-            .clickOnTodoItem("avocados")
+            .clickOnItem("avocados")
 
             // THEN
             .verifyItemShown("avocados", true)
@@ -166,7 +166,7 @@ public class TodoAppTest {
             .addGroceryItem("avocados")
             .addGroceryItem("tomatoes")
             .getGroceryList()
-            .clickOnTodoItem("avocados");
+            .clickOnItem("avocados");
 
         // WHEN
         todoPage
@@ -186,7 +186,7 @@ public class TodoAppTest {
             .addGroceryItem("avocados")
             .addGroceryItem("tomatoes")
             .getGroceryList()
-            .clickOnTodoItem("avocados");
+            .clickOnItem("avocados");
 
         // WHEN
         todoPage
@@ -206,7 +206,7 @@ public class TodoAppTest {
             .addGroceryItem("avocados")
             .addGroceryItem("tomatoes")
             .getGroceryList()
-            .clickOnTodoItem("avocados");
+            .clickOnItem("avocados");
         todoPage
             .selectCompleted()
 
@@ -232,11 +232,11 @@ public class TodoAppTest {
 
         todoPage
             .getGroceryList()
-            .clickOnTodoItem("avocados");
+            .clickOnItem("avocados");
 
         todoPage
             .getTodoList()
-            .clickOnTodoItem("Tidy up");
+            .clickOnItem("Tidy up");
 
         // WHEN
         todoPage
