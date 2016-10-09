@@ -39,29 +39,29 @@ public class TodoAppTest {
         new TodoPageObject(driver).get()
 
             // WHEN
-            .addTodo("testTodo1")
-            .addTodo("testTodo2")
+            .addTodo("Buy groceries")
+            .addTodo("Tidy up")
 
             // THEN
             .getTodoList()
-            .verifyItemShown("testTodo1", false)
-            .verifyItemShown("testTodo2", false);
+            .verifyItemShown("Buy groceries", false)
+            .verifyItemShown("Tidy up", false);
     }
 
     @Test
     public void testCompleteTodo() {
         // GIVEN
         new TodoPageObject(driver).get()
-            .addTodo("testTodo1")
-            .addTodo("testTodo2")
+            .addTodo("Buy groceries")
+            .addTodo("Tidy up")
             .getTodoList()
 
             // WHEN
-            .clickOnTodoItem("testTodo1")
+            .clickOnTodoItem("Buy groceries")
 
             // THEN
-            .verifyItemShown("testTodo1", true)
-            .verifyItemShown("testTodo2", false);
+            .verifyItemShown("Buy groceries", true)
+            .verifyItemShown("Tidy up", false);
     }
 
     @Test
@@ -70,10 +70,10 @@ public class TodoAppTest {
         TodoPageObject todoPage = new TodoPageObject(driver).get();
 
         todoPage
-            .addTodo("testTodo1")
-            .addTodo("testTodo2")
+            .addTodo("Buy groceries")
+            .addTodo("Tidy up")
             .getTodoList()
-            .clickOnTodoItem("testTodo1");
+            .clickOnTodoItem("Buy groceries");
 
         // WHEN
         todoPage
@@ -81,8 +81,8 @@ public class TodoAppTest {
 
             // THEN
             .getTodoList()
-            .verifyItemNotShown("testTodo1")
-            .verifyItemShown("testTodo2", false);
+            .verifyItemNotShown("Buy groceries")
+            .verifyItemShown("Tidy up", false);
     }
 
     @Test
@@ -90,10 +90,10 @@ public class TodoAppTest {
         // GIVEN
         TodoPageObject todoPage = new TodoPageObject(driver).get();
         todoPage
-            .addTodo("testTodo1")
-            .addTodo("testTodo2")
+            .addTodo("Buy groceries")
+            .addTodo("Tidy up")
             .getTodoList()
-            .clickOnTodoItem("testTodo1");
+            .clickOnTodoItem("Buy groceries");
 
         // WHEN
         todoPage
@@ -101,8 +101,8 @@ public class TodoAppTest {
 
             // THEN
             .getTodoList()
-            .verifyItemShown("testTodo1", true)
-            .verifyItemNotShown("testTodo2");
+            .verifyItemShown("Buy groceries", true)
+            .verifyItemNotShown("Tidy up");
     }
 
     @Test
@@ -110,10 +110,10 @@ public class TodoAppTest {
         // GIVEN
         TodoPageObject todoPage = new TodoPageObject(driver).get();
         todoPage
-            .addTodo("testTodo1")
-            .addTodo("testTodo2")
+            .addTodo("Buy groceries")
+            .addTodo("Tidy up")
             .getTodoList()
-            .clickOnTodoItem("testTodo1");
+            .clickOnTodoItem("Buy groceries");
         todoPage
             .selectCompleted()
 
@@ -122,8 +122,8 @@ public class TodoAppTest {
 
             // THEN
             .getTodoList()
-            .verifyItemShown("testTodo1", true)
-            .verifyItemShown("testTodo2", false);
+            .verifyItemShown("Buy groceries", true)
+            .verifyItemShown("Tidy up", false);
     }
 
     @Test
