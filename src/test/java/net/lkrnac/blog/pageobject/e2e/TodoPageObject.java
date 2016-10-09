@@ -16,71 +16,69 @@ import static org.junit.Assert.*;
  * Created by: Lubos Krnac
  * Date: 2016-07-14.
  */
-public class TodoPageObject {
-    private WebDriver driver;
-    private WebDriverWait wait;
+class TodoPageObject {
+    private final WebDriver driver;
+    private final WebDriverWait wait;
+    private final ItemsListComponent todoItemsList;
+    private final AddItemComponent addTodoItemComponent;
+    private final ItemsListComponent groceryItemsList;
+    private final AddItemComponent addGroceryItemComponent;
 
-    public TodoPageObject(WebDriver driver) {
+    TodoPageObject(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 10);
+        todoItemsList = new ItemsListComponent(driver, ".todo-list");
+        addTodoItemComponent = new AddItemComponent(driver, ".add-todo");
+        groceryItemsList = new ItemsListComponent(driver, ".grocery-list");
+        addGroceryItemComponent = new AddItemComponent(driver, ".add-grocery-item");
     }
 
-    public TodoPageObject get() {
+    TodoPageObject get() {
         driver.get("localhost:8080");
         wait.until(ExpectedConditions.elementToBeClickable(By.tagName("button")));
         return this;
+    }
+
+    TodoPageObject selectAll() {
+        findElementWithText("All").click();
+        return this;
+    }
+
+    TodoPageObject selectActive() {
+        findElementWithText("Active").click();
+        return this;
+    }
+
+    TodoPageObject selectCompleted() {
+        findElementWithText("Completed").click();
+        return this;
+    }
+
+    TodoPageObject addTodo(String todoName) {
+        addTodoItemComponent.addItem(todoName);
+        return this;
+    }
+
+    TodoPageObject addGroceryItem(String todoName) {
+        addGroceryItemComponent.addItem(todoName);
+        return this;
+    }
+
+    ItemsListComponent getTodoList() {
+        return todoItemsList;
+    }
+
+    ItemsListComponent getGroceryList() {
+        return groceryItemsList;
     }
 
     private WebElement findElementWithText(String text) {
         return driver.findElement(getConditionForText(text));
     }
 
-    private List<WebElement> findElementsWithText(String text) {
-        return driver.findElements(getConditionForText(text));
-    }
-
     private By getConditionForText(String text) {
         return By.xpath(format("//*[text()='%s']", text));
     }
 
-    public TodoPageObject addTodo(String todo) {
-        WebElement input = driver.findElement(By.tagName("input"));
-        input.sendKeys(todo);
-        WebElement button = driver.findElement(By.tagName("button"));
-        button.click();
-        return this;
-    }
 
-    public TodoPageObject clickOnTodoItem(String todoItem) {
-        findElementWithText(todoItem).click();
-        return this;
-    }
-
-    public TodoPageObject selectAll() {
-        findElementWithText("All").click();
-        return this;
-    }
-
-    public TodoPageObject selectActive() {
-        findElementWithText("Active").click();
-        return this;
-    }
-
-    public TodoPageObject selectCompleted() {
-        findElementWithText("Completed").click();
-        return this;
-    }
-
-    public TodoPageObject verifyTodoShown(String todoItem, boolean expectedStrikethrough) {
-        WebElement todoElement = findElementWithText(todoItem);
-        assertNotNull(todoElement);
-        boolean actualStrikethrough = todoElement.getAttribute("style").contains("text-decoration: line-through;");
-        assertEquals(expectedStrikethrough, actualStrikethrough);
-        return this;
-    }
-
-    public TodoPageObject verifyTodoNotShown(String todoItem) {
-        assertTrue(findElementsWithText(todoItem).isEmpty());
-        return this;
-    }
 }
