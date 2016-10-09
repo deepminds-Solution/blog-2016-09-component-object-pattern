@@ -13,3 +13,4 @@ hs_err_pid*
 
 .idea
 /src/main/resources/static/dist/bundle.js
+.gradle
