@@ -43,8 +43,9 @@ public class TodoAppTest {
             .addTodo("testTodo2")
 
             // THEN
-            .verifyTodoShown("testTodo1", false)
-            .verifyTodoShown("testTodo2", false);
+            .getTodoList()
+            .verifyItemShown("testTodo1", false)
+            .verifyItemShown("testTodo2", false);
     }
 
     @Test
@@ -53,61 +54,75 @@ public class TodoAppTest {
         new TodoPageObject(driver).get()
             .addTodo("testTodo1")
             .addTodo("testTodo2")
+            .getTodoList()
 
             // WHEN
             .clickOnTodoItem("testTodo1")
 
             // THEN
-            .verifyTodoShown("testTodo1", true)
-            .verifyTodoShown("testTodo2", false);
+            .verifyItemShown("testTodo1", true)
+            .verifyItemShown("testTodo2", false);
     }
 
     @Test
     public void testSelectActive() {
         // GIVEN
-        new TodoPageObject(driver).get()
+        TodoPageObject todoPage = new TodoPageObject(driver).get();
+
+        todoPage
             .addTodo("testTodo1")
             .addTodo("testTodo2")
-            .clickOnTodoItem("testTodo1")
+            .getTodoList()
+            .clickOnTodoItem("testTodo1");
 
-            // WHEN
+        // WHEN
+        todoPage
             .selectActive()
 
             // THEN
-            .verifyTodoNotShown("testTodo1")
-            .verifyTodoShown("testTodo2", false);
+            .getTodoList()
+            .verifyItemNotShown("testTodo1")
+            .verifyItemShown("testTodo2", false);
     }
 
     @Test
     public void testSelectCompleted() {
         // GIVEN
-        new TodoPageObject(driver).get()
+        TodoPageObject todoPage = new TodoPageObject(driver).get();
+        todoPage
             .addTodo("testTodo1")
             .addTodo("testTodo2")
-            .clickOnTodoItem("testTodo1")
+            .getTodoList()
+            .clickOnTodoItem("testTodo1");
 
-            // WHEN
+        // WHEN
+        todoPage
             .selectCompleted()
 
             // THEN
-            .verifyTodoShown("testTodo1", true)
-            .verifyTodoNotShown("testTodo2");
+            .getTodoList()
+            .verifyItemShown("testTodo1", true)
+            .verifyItemNotShown("testTodo2");
     }
 
     @Test
     public void testSelectAll() {
         // GIVEN
-        new TodoPageObject(driver).get()
+        TodoPageObject todoPage = new TodoPageObject(driver).get();
+        todoPage
             .addTodo("testTodo1")
             .addTodo("testTodo2")
-            .clickOnTodoItem("testTodo1")
+            .getTodoList()
+            .clickOnTodoItem("testTodo1");
+        todoPage
             .selectCompleted()
 
             // WHEN
             .selectAll()
 
             // THEN
-            .verifyTodoShown("testTodo1", true)
-            .verifyTodoShown("testTodo2", false);
+            .getTodoList()
+            .verifyItemShown("testTodo1", true)
+            .verifyItemShown("testTodo2", false);
     }
 }
