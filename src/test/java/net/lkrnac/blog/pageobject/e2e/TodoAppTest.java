@@ -65,7 +65,7 @@ public class TodoAppTest {
     }
 
     @Test
-    public void testSelectActive() {
+    public void testSelectTodosActive() {
         // GIVEN
         TodoPageObject todoPage = new TodoPageObject(driver).get();
 
@@ -86,7 +86,7 @@ public class TodoAppTest {
     }
 
     @Test
-    public void testSelectCompleted() {
+    public void testSelectTodosCompleted() {
         // GIVEN
         TodoPageObject todoPage = new TodoPageObject(driver).get();
         todoPage
@@ -106,7 +106,7 @@ public class TodoAppTest {
     }
 
     @Test
-    public void testSelectAll() {
+    public void testSelectTodosAll() {
         // GIVEN
         TodoPageObject todoPage = new TodoPageObject(driver).get();
         todoPage
@@ -124,5 +124,98 @@ public class TodoAppTest {
             .getTodoList()
             .verifyItemShown("testTodo1", true)
             .verifyItemShown("testTodo2", false);
+    }
+
+    @Test
+    public void testCreateGroceryItems() {
+        // GIVEN
+        new TodoPageObject(driver).get()
+
+            // WHEN
+            .addGroceryItem("avocados")
+            .addGroceryItem("tomatoes")
+
+            // THEN
+            .getGroceryList()
+            .verifyItemShown("avocados", false)
+            .verifyItemShown("tomatoes", false);
+    }
+
+    @Test
+    public void testCompleteGroceryItem() {
+        // GIVEN
+        new TodoPageObject(driver).get()
+            .addGroceryItem("avocados")
+            .addGroceryItem("tomatoes")
+            .getGroceryList()
+
+            // WHEN
+            .clickOnTodoItem("avocados")
+
+            // THEN
+            .verifyItemShown("avocados", true)
+            .verifyItemShown("tomatoes", false);
+    }
+
+    @Test
+    public void testSelectGroceryItemsActive() {
+        // GIVEN
+        TodoPageObject todoPage = new TodoPageObject(driver).get();
+
+        todoPage
+            .addGroceryItem("avocados")
+            .addGroceryItem("tomatoes")
+            .getGroceryList()
+            .clickOnTodoItem("avocados");
+
+        // WHEN
+        todoPage
+            .selectActive()
+
+            // THEN
+            .getGroceryList()
+            .verifyItemNotShown("avocados")
+            .verifyItemShown("tomatoes", false);
+    }
+
+    @Test
+    public void testSelectGroceryItemsCompleted() {
+        // GIVEN
+        TodoPageObject todoPage = new TodoPageObject(driver).get();
+        todoPage
+            .addGroceryItem("avocados")
+            .addGroceryItem("tomatoes")
+            .getGroceryList()
+            .clickOnTodoItem("avocados");
+
+        // WHEN
+        todoPage
+            .selectCompleted()
+
+            // THEN
+            .getGroceryList()
+            .verifyItemShown("avocados", true)
+            .verifyItemNotShown("tomatoes");
+    }
+
+    @Test
+    public void testSelectGroceryItemsAll() {
+        // GIVEN
+        TodoPageObject todoPage = new TodoPageObject(driver).get();
+        todoPage
+            .addGroceryItem("avocados")
+            .addGroceryItem("tomatoes")
+            .getGroceryList()
+            .clickOnTodoItem("avocados");
+        todoPage
+            .selectCompleted()
+
+            // WHEN
+            .selectAll()
+
+            // THEN
+            .getGroceryList()
+            .verifyItemShown("avocados", true)
+            .verifyItemShown("tomatoes", false);
     }
 }
